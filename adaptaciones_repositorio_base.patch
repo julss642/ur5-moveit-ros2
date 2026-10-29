@@ -1,0 +1,43 @@
+diff --git a/ur5_robotiq_bringup/launch/sim_gz_sgb.launch.py b/ur5_robotiq_bringup/launch/sim_gz_sgb.launch.py
+index 454d697..f91db92 100644
+--- a/ur5_robotiq_bringup/launch/sim_gz_sgb.launch.py
++++ b/ur5_robotiq_bringup/launch/sim_gz_sgb.launch.py
+@@ -118,7 +118,7 @@ def launch_setup(context, *args, **kwargs):
+             "-topic", "robot_description",
+             "-name", "ur",
+             "-allow_renaming", "true",
+-            "z", "0.1",
++            "-z", "0.1",
+         ],
+     )
+ 
+diff --git a/ur5_robotiq_description/urdf/ur_with_gripper_base.urdf.xacro b/ur5_robotiq_description/urdf/ur_with_gripper_base.urdf.xacro
+index 60d52bd..ba60a49 100644
+--- a/ur5_robotiq_description/urdf/ur_with_gripper_base.urdf.xacro
++++ b/ur5_robotiq_description/urdf/ur_with_gripper_base.urdf.xacro
+@@ -19,8 +19,7 @@
+       visual_parameters_file="$(find ur_description)/config/ur5/visual_parameters.yaml"
+       safety_limits="false"
+       safety_pos_margin="0.15"
+-      safety_k_position="20"
+-      force_abs_paths="true">
++      safety_k_position="20" generate_ros2_control_tag="false">
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+   </xacro:ur_robot>
+ 
+diff --git a/ur5_robotiq_description/urdf/ur_with_gripper_sim.urdf.xacro b/ur5_robotiq_description/urdf/ur_with_gripper_sim.urdf.xacro
+index 630d7e5..6ab8d94 100644
+--- a/ur5_robotiq_description/urdf/ur_with_gripper_sim.urdf.xacro
++++ b/ur5_robotiq_description/urdf/ur_with_gripper_sim.urdf.xacro
+@@ -39,8 +39,10 @@
+ 
+   <!-- Gazebo ros2_control plugin -->
+   <gazebo>
+-    <plugin filename="libgz_ros2_control-system.so"
++    <plugin filename="gz_ros2_control-system"
+             name="gz_ros2_control::GazeboSimROS2ControlPlugin">
++      <robot_param>robot_description</robot_param>
++      <robot_param_node>robot_state_publisher</robot_param_node>
+       <parameters>$(arg simulation_controllers)</parameters>
+       <ros><namespace>$(arg ros_namespace)</namespace></ros>
+     </plugin>
