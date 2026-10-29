@@ -61,8 +61,3 @@ Se verificaron los movimientos articulares del UR5,
 las operaciones de apertura y cierre del gripper,
 la planificacion de trayectorias en RViz y la ejecucion
 de una trayectoria mediante un nodo de MoveIt.
-
-## Evidencias audiovisuales
-
-Los videos de funcionamiento se entregan mediante
-enlaces de Google Drive en el informe PDF.
